@@ -136,7 +136,25 @@ NXT.ai is a comprehensive multi-tenant SaaS platform built for marketing automat
 
 Preferred communication style: Simple, everyday language.
 
+## Domain Configuration
+
+### Custom Domain Setup (dnxtai.com)
+- Domain registered with Squarespace
+- Security headers configured for production
+- CORS policies set for dnxtai.com and www.dnxtai.com
+- Ready for Replit Deployments custom domain configuration
+
+### DNS Configuration Required
+```
+Host: @
+Target: [replit-deployment-url].replit.app
+
+Host: www
+Target: [replit-deployment-url].replit.app
+```
+
 ## Changelog
 
 Changelog:
 - June 26, 2025. Initial setup
+- June 26, 2025. Custom domain configuration added for dnxtai.com with Squarespace DNS
