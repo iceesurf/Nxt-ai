@@ -1,0 +1,63 @@
+Olá! Preciso que configurem corretamente o projeto da minha plataforma chamada NXT.ai aqui no Replit Free. Já enviei o arquivo .zip com toda a estrutura base — agora peço, por favor, que seja configurado corretamente e complementado com as funcionalidades visuais e estruturais principais.
+
+Essa versão é essencial: será demonstrada publicamente como MVP e precisa funcionar 100% dentro do Replit Free (sem upgrades pagos), com visual completo e organização clara.
+
+🔧 Estrutura do Projeto
+	•	client/ → frontend com React (Vite) + TailwindCSS
+	•	server/ → backend com Node.js + Express + SQLite (sem banco externo)
+	•	.replit e replit.nix já configurados para rodar direto com botão “Run”
+	•	Tudo precisa rodar em uma única instância no plano gratuito do Replit
+
+🎨 Design e Apresentação
+	•	Tema visual roxo escuro (#120028), interface leve, moderna e responsiva
+	•	Nome correto: NXT.ai (não Next)
+	•	Página inicial apresentável com descrição institucional
+	•	Logo já está anexada e deve aparecer no topo (use favicon se possível)
+
+🔐 Autenticação
+	•	Login com JWT funcional
+	•	Multiempresa (multi-tenant): cada usuário pertence a uma empresa
+	•	Usuário padrão: admin@dnxtai.com / senha123
+	•	Sessão básica com token e autenticação protegida
+
+🧩 Módulos no Menu Principal
+
+Todos os seguintes módulos devem aparecer visualmente no menu ou painel lateral (podem mostrar “em construção” ou conter esboços, mas a estrutura de arquivos e rotas deve existir):
+	1.	CRM e Leads — gestão de contatos com estrutura para adicionar filtros
+	2.	Campanhas de Marketing — estrutura para cadastrar campanhas (ainda sem automação)
+	3.	Workflows — interface simples para visualizar fluxo automatizado (como N8N)
+	4.	Chatbot com IA — tela para configurar perguntas e respostas (mesmo que fictício)
+	5.	Integrações — módulo com campos simulados para chaves de API (Facebook, Google, Zapier, etc.)
+	6.	Financeiro / ASAAS — módulo com estrutura de credenciais ASAAS (integração futura)
+	7.	Webhooks — lista configurável de webhooks por tenant
+	8.	Relatórios com IA — cards visuais com dados fictícios + ícone de IA
+	9.	Construtor de Landing Pages — interface visual com nome, botão e formulário
+	10.	Central do Cliente — painel de visão geral do cliente com status dos módulos
+
+🧱 Requisitos Técnicos
+	•	Estrutura modular: cada módulo separado em arquivos/pastas, pronto para expandir
+	•	Multi-tenant: com simulação de empresa, token e controle básico de escopo
+	•	Permissões: simulação de hierarquia (admin, gerente, cliente)
+	•	Marca branca: pronto para permitir personalização por empresa (logo, nome, cores)
+	•	Mesmo que algumas partes ainda não funcionem, devem estar claramente planejadas no código (com // TODO ou comentários explicativos)
+
+✅ Rodando no Replit Free
+	•	Tudo precisa rodar com clique único em “Run” — sem setups manuais
+	•	Backend: porta 4000
+	•	Frontend: consome APIs locais
+	•	SQLite rodando localmente no Replit (sem dependência externa)
+
+🟢 Tornar o projeto público
+
+Se possível, deixe o projeto como público no Replit para que eu possa enviar para meu sócio (Leonardo) e investidores parceiros.
+
+🌐 Domínio da plataforma: www.dnxtai.com (será usado no futuro para produção)
+
+—
+
+Muito obrigado pela dedicação! Esse projeto representa a versão inicial da nossa plataforma SaaS NXT.ai — então o cuidado com a apresentação e estrutura é essencial.
+
+Atenciosamente,
+Samuel
+Fundador da NXT.ai
+www.dnxtai.com
