@@ -158,3 +158,4 @@ Target: [replit-deployment-url].replit.app
 Changelog:
 - June 26, 2025. Initial setup
 - June 26, 2025. Custom domain configuration added for dnxtai.com with Squarespace DNS
+- June 28, 2025. Database migration completed - PostgreSQL implemented with Drizzle ORM, replacing in-memory storage

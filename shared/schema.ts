@@ -1,4 +1,5 @@
 import { pgTable, text, serial, integer, boolean, timestamp } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -124,3 +125,47 @@ export type Webhook = typeof webhooks.$inferSelect;
 export type InsertWebhook = z.infer<typeof insertWebhookSchema>;
 
 export type LoginRequest = z.infer<typeof loginSchema>;
+
+// Relations
+export const companiesRelations = relations(companies, ({ many }) => ({
+  users: many(users),
+  leads: many(leads),
+  campaigns: many(campaigns),
+  workflows: many(workflows),
+  webhooks: many(webhooks),
+}));
+
+export const usersRelations = relations(users, ({ one }) => ({
+  company: one(companies, {
+    fields: [users.companyId],
+    references: [companies.id],
+  }),
+}));
+
+export const leadsRelations = relations(leads, ({ one }) => ({
+  company: one(companies, {
+    fields: [leads.companyId],
+    references: [companies.id],
+  }),
+}));
+
+export const campaignsRelations = relations(campaigns, ({ one }) => ({
+  company: one(companies, {
+    fields: [campaigns.companyId],
+    references: [companies.id],
+  }),
+}));
+
+export const workflowsRelations = relations(workflows, ({ one }) => ({
+  company: one(companies, {
+    fields: [workflows.companyId],
+    references: [companies.id],
+  }),
+}));
+
+export const webhooksRelations = relations(webhooks, ({ one }) => ({
+  company: one(companies, {
+    fields: [webhooks.companyId],
+    references: [companies.id],
+  }),
+}));

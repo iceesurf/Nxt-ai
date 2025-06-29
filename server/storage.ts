@@ -4,6 +4,8 @@ import {
   type Lead, type InsertLead, type Campaign, type InsertCampaign,
   type Workflow, type InsertWorkflow, type Webhook, type InsertWebhook
 } from "@shared/schema";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 
 export interface IStorage {
@@ -248,4 +250,108 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+// Database Storage Implementation
+export class DatabaseStorage implements IStorage {
+  async getUser(id: number): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || undefined;
+  }
+
+  async getUserByEmail(email: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.email, email));
+    return user || undefined;
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const [user] = await db
+      .insert(users)
+      .values(insertUser)
+      .returning();
+    return user;
+  }
+
+  async validateUser(email: string, password: string): Promise<User | null> {
+    const user = await this.getUserByEmail(email);
+    if (!user) return null;
+    
+    const isValid = bcrypt.compareSync(password, user.password);
+    return isValid ? user : null;
+  }
+
+  async getCompany(id: number): Promise<Company | undefined> {
+    const [company] = await db.select().from(companies).where(eq(companies.id, id));
+    return company || undefined;
+  }
+
+  async createCompany(insertCompany: InsertCompany): Promise<Company> {
+    const [company] = await db
+      .insert(companies)
+      .values(insertCompany)
+      .returning();
+    return company;
+  }
+
+  async getLeads(companyId: number): Promise<Lead[]> {
+    return await db.select().from(leads).where(eq(leads.companyId, companyId));
+  }
+
+  async createLead(insertLead: InsertLead): Promise<Lead> {
+    const [lead] = await db
+      .insert(leads)
+      .values(insertLead)
+      .returning();
+    return lead;
+  }
+
+  async updateLead(id: number, updates: Partial<Lead>): Promise<Lead | undefined> {
+    const [updatedLead] = await db
+      .update(leads)
+      .set(updates)
+      .where(eq(leads.id, id))
+      .returning();
+    return updatedLead || undefined;
+  }
+
+  async deleteLead(id: number): Promise<boolean> {
+    const result = await db.delete(leads).where(eq(leads.id, id));
+    return result.rowCount > 0;
+  }
+
+  async getCampaigns(companyId: number): Promise<Campaign[]> {
+    return await db.select().from(campaigns).where(eq(campaigns.companyId, companyId));
+  }
+
+  async createCampaign(insertCampaign: InsertCampaign): Promise<Campaign> {
+    const [campaign] = await db
+      .insert(campaigns)
+      .values(insertCampaign)
+      .returning();
+    return campaign;
+  }
+
+  async getWorkflows(companyId: number): Promise<Workflow[]> {
+    return await db.select().from(workflows).where(eq(workflows.companyId, companyId));
+  }
+
+  async createWorkflow(insertWorkflow: InsertWorkflow): Promise<Workflow> {
+    const [workflow] = await db
+      .insert(workflows)
+      .values(insertWorkflow)
+      .returning();
+    return workflow;
+  }
+
+  async getWebhooks(companyId: number): Promise<Webhook[]> {
+    return await db.select().from(webhooks).where(eq(webhooks.companyId, companyId));
+  }
+
+  async createWebhook(insertWebhook: InsertWebhook): Promise<Webhook> {
+    const [webhook] = await db
+      .insert(webhooks)
+      .values(insertWebhook)
+      .returning();
+    return webhook;
+  }
+}
+
+export const storage = new DatabaseStorage();
